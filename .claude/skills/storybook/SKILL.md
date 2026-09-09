@@ -1,0 +1,1 @@
+Run `bunx storybook ai setup` and follow its instructions precisely.

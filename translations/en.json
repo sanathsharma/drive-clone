@@ -1,0 +1,94 @@
+{
+	"email-sent": {
+		"back-to-sign-in": "Back to Sign In",
+		"description": "Instructions to reset you password are sent to your email. The link opens once and expires in 1 hour.",
+		"item-check-spam": "Check spam folder.",
+		"item-old-links": "Older reset links stop working as soon as a new one is sent.",
+		"not-received-email": "Didn't receive an email?",
+		"title": "Check your email",
+		"use-different-email": "Use a different email address"
+	},
+	"request-password-reset": {
+		"back-to-sign-in": "Back to Sign In",
+		"description": "Enter the email address on your account and we'll send you a link to set a new password.",
+		"email-label": "Email",
+		"email-placeholder": "Enter your email address",
+		"errors": {
+			"email": {
+				"default": "Invalid {path}"
+			}
+		},
+		"failed-to-submit-form": "Failed to reset password",
+		"pending-button": "Sending...",
+		"submit-button": "Send reset link",
+		"title": "Reset your password"
+	},
+	"reset-password": {
+		"back-to-sign-in": "Back to Sign In",
+		"bad-jwt": "Invalid or expired session token",
+		"description": "Enter your new password",
+		"failed-to-reset-password": "Failed to reset password",
+		"hide-password-label": "Hide password",
+		"password-description": "8 to 32 characters long, contains at least one uppercase letter, one lowercase letter, one number, and one special character.",
+		"password-label": "New Password",
+		"password-placeholder": "Enter your new password",
+		"reset-button": "Continue",
+		"reset-pending": "Resetting password...",
+		"show-password-label": "Show password",
+		"success-message": "Password reset successfully, please sign in.",
+		"title": "Reset Password"
+	},
+	"sign-in": {
+		"already-have-an-account": "Already have an account?",
+		"email-label": "Email",
+		"email-placeholder": "Enter your email address",
+		"errors": {
+			"email": {
+				"default": "Invalid {path}"
+			},
+			"password": {
+				"default": "Invalid {path}"
+			}
+		},
+		"failed-to-sign-in": "Failed to sign in",
+		"forgot-password-cta": "Forgot password?",
+		"hide-password-label": "Hide password",
+		"password-label": "Password",
+		"password-placeholder": "Enter your password",
+		"show-password-label": "Show password",
+		"sign-in-button": "Continue",
+		"sign-in-pending": "Signing in...",
+		"sign-up-cta": "Sign up",
+		"title": "Sign In"
+	},
+	"sign-up": {
+		"description": "Fill out the following details to sign up for an account.",
+		"email-label": "Email",
+		"email-placeholder": "Enter your email address",
+		"errors": {
+			"email": {
+				"default": "Invalid {path}"
+			},
+			"name": {
+				"default": "Invalid {path}",
+				"pattern": "must be alphabetical characters (a-zA-Z) with space"
+			},
+			"password": {
+				"default": "Invalid {path}"
+			}
+		},
+		"failed-to-sign-up": "Failed to sign up",
+		"hide-password-label": "Hide password",
+		"name-label": "Name",
+		"name-placeholder": "Enter your name",
+		"password-description": "8 to 32 characters long, contains at least one uppercase letter, one lowercase letter, one number, and one special character.",
+		"password-label": "Password",
+		"password-placeholder": "Enter your password",
+		"show-password-label": "Show password",
+		"sign-in-cta": "Sign in",
+		"sign-in-cta-description": "Already have an account?",
+		"sign-up-button": "Continue",
+		"sign-up-pending": "Signing up...",
+		"title": "Sign up"
+	}
+}

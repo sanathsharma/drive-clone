@@ -1,0 +1,202 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--font-sans: var(--font-sans);
+	--font-mono: var(--font-mono);
+	--font-heading: var(--font-sans);
+	--color-sidebar-ring: var(--sidebar-ring);
+	--color-sidebar-border: var(--sidebar-border);
+	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+	--color-sidebar-accent: var(--sidebar-accent);
+	--color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+	--color-sidebar-primary: var(--sidebar-primary);
+	--color-sidebar-foreground: var(--sidebar-foreground);
+	--color-sidebar: var(--sidebar);
+	--color-chart-5: var(--chart-5);
+	--color-chart-4: var(--chart-4);
+	--color-chart-3: var(--chart-3);
+	--color-chart-2: var(--chart-2);
+	--color-chart-1: var(--chart-1);
+	--color-ring: var(--ring);
+	--color-input: var(--input);
+	--color-border: var(--border);
+	--color-destructive: var(--destructive);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-accent: var(--accent);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-muted: var(--muted);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-secondary: var(--secondary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-primary: var(--primary);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-popover: var(--popover);
+	--color-card-foreground: var(--card-foreground);
+	--color-card: var(--card);
+	--radius-sm: calc(var(--radius) * 0.6);
+	--radius-md: calc(var(--radius) * 0.8);
+	--radius-lg: var(--radius);
+	--radius-xl: calc(var(--radius) * 1.4);
+	--radius-2xl: calc(var(--radius) * 1.8);
+	--radius-3xl: calc(var(--radius) * 2.2);
+	--radius-4xl: calc(var(--radius) * 2.6);
+	--color-crust: var(--crust);
+}
+
+:root {
+	--font-sans: system-ui, sans-serif;
+	--font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, consolas, "DejaVu Sans Mono", monospace;
+
+	/* Latte theme */
+	--radius: 0.25rem;
+	--background: hsl(220deg 23.08% 94.90%); /* base */
+	--foreground: hsl(234deg 16.02% 35.49%); /* text */
+	--card: hsl(220deg 23.08% 94.90%); /* base */
+	--card-foreground: hsl(234deg 16.02% 35.49%); /* text */
+	--popover: hsl(220deg 23.08% 94.90%); /* base */
+	--popover-foreground: hsl(234deg 16.02% 35.49%); /* text */
+	--primary: hsl(220deg 91.49% 53.92%); /* accent - Blue */
+	--primary-foreground: hsl(220deg 23.08% 94.90%); /* base */
+	--secondary: hsl(223deg 15.91% 82.75%); /* surface0 */
+	--secondary-foreground: hsl(234deg 16.02% 35.49%); /* text */
+	--muted: hsl(223deg 15.91% 82.75%); /* surface0 */
+	--muted-foreground: hsl(233deg 12.80% 41.37%); /* subtext1 */
+	--accent: hsl(223deg 15.91% 82.75%); /* surface0 */
+	--accent-foreground: hsl(234deg 16.02% 35.49%); /* text */
+	--destructive: hsl(347deg 86.67% 44.12%); /* red */
+	--border: hsl(225deg 13.56% 76.86%); /* surface1 */
+	--input: hsl(225deg 13.56% 76.86%); /* surface1 */
+	--ring: hsl(234deg 16.02% 35.49%); /* text */
+	--chart-1: hsl(345deg 57.65% 74.12%); /* red */
+	--chart-2: hsl(185deg 37.25% 70.59%); /* teal */
+	--chart-3: hsl(219deg 81.96% 78.43%); /* blue */
+	--chart-4: hsl(35deg 61.18% 76.86%); /* yellow */
+	--chart-5: hsl(113deg 32.94% 73.33%); /* green */
+	--sidebar: hsl(218deg 25.10% 93.73%); /* mantle */
+	--sidebar-foreground: hsl(234deg 16.02% 35.49%); /* text */
+	--sidebar-primary: hsl(220deg 91.49% 53.92%); /* accent - Blue */
+	--sidebar-primary-foreground: hsl(220deg 23.08% 94.90%); /* base */
+	--sidebar-accent: hsl(220deg 23.08% 94.90%); /* surface0 */
+	--sidebar-accent-foreground: hsl(234deg 16.02% 35.49%); /* text */
+	--sidebar-border: hsl(225deg 13.56% 76.86%); /* surface1 */
+	--sidebar-ring: hsl(225deg 13.56% 76.86%); /* surface1 */
+	--crust: hsl(220deg 21% 89%); /* crust */
+}
+
+.dark {
+	/* Mocha theme */
+	--radius: 0.25rem;
+	--background: hsl(240deg 21.05% 14.90%); /* base */
+	--foreground: hsl(226deg 63.93% 88.04%); /* text */
+	--card: hsl(240deg 21.05% 14.90%); /* base */
+	--card-foreground: hsl(226deg 63.93% 88.04%); /* text */
+	--popover: hsl(240deg 21.05% 14.90%); /* base */
+	--popover-foreground: hsl(226deg 63.93% 88.04%); /* text */
+	--primary: hsl(217deg 91.87% 75.88%); /* accent - Blue */
+	--primary-foreground: hsl(240deg 21.05% 14.90%); /* base */
+	--secondary: hsl(237deg 16.24% 22.94%); /* surface0 */
+	--secondary-foreground: hsl(226deg 63.93% 88.04%); /* text */
+	--muted: hsl(237deg 16.24% 22.94%); /* surface0 */
+	--muted-foreground: hsl(227deg 35.29% 80.00%); /* subtext1 */
+	--accent: hsl(237deg 16.24% 22.94%); /* surface0 */
+	--accent-foreground: hsl(226deg 63.93% 88.04%); /* text */
+	--destructive: hsl(343deg 81.25% 74.90%); /* red */
+	--border: hsl(234deg 13.21% 31.18%); /* surface1 */
+	--input: hsl(234deg 13.21% 31.18%); /* surface1 */
+	--ring: hsl(226deg 63.93% 88.04%); /* text */
+	--chart-1: hsl(329deg 21.57% 37.25%); /* red */
+	--chart-2: hsl(188deg 18.82% 37.25%); /* teal */
+	--chart-3: hsl(221deg 27.45% 39.61%); /* blue */
+	--chart-4: hsl(30deg 9.41% 42.35%); /* yellow */
+	--chart-5: hsl(139deg 12.94% 38.04%); /* green */
+	--sidebar: hsl(240deg 21.18% 14.12%); /* mantle */
+	--sidebar-foreground: hsl(226deg 63.93% 88.04%); /* text */
+	--sidebar-primary: hsl(217deg 91.87% 75.88%); /* accent - Blue */
+	--sidebar-primary-foreground: hsl(240deg 21.05% 14.90%); /* base */
+	--sidebar-accent: hsl(240deg 21.05% 14.90%); /* surface0 */
+	--sidebar-accent-foreground: hsl(226deg 63.93% 88.04%); /* text */
+	--sidebar-border: hsl(234deg 13.21% 31.18%); /* surface1 */
+	--sidebar-ring: hsl(234deg 13.21% 31.18%); /* surface1 */
+	--crust: hsl(240deg 23% 9%); /* crust */
+}
+
+@layer base {
+	/* * { @apply border-border outline-ring/50; } */
+
+	body {
+		color: var(--foreground);
+		background-color: var(--background);
+	}
+
+	html {
+		font-family: var(--font-sans);
+	}
+
+	button:not(:disabled),
+	[role="button"]:not(:disabled) {
+		cursor: pointer;
+	}
+}
+
+@utility c_outline {
+	outline: var(--primary) solid 2px;
+	outline-offset: 2px;
+}
+
+@utility c_outline-inset {
+	outline: var(--primary) solid 2px;
+	outline-offset: -1px;
+}
+
+@utility c_outline-destructive {
+	outline: var(--destructive) solid 2px;
+	outline-offset: 2px;
+}
+
+@utility c_outline-destructive-inset {
+	outline: var(--destructive) solid 2px;
+	outline-offset: -1px;
+}
+
+@utility main {
+	color: var(--foreground);
+	background-color: var(--background);
+	border-radius: var(--radius);
+}
+
+@utility main--dim-full {
+	--margin: calc(var(--spacing) * 2);
+
+	width: calc(100% - var(--margin) * 2);
+	height: calc(100dvh - var(--margin) * 2);
+	margin: var(--margin);
+}
+
+/* 
+ * Apply for button wraping the icon, not on the icon itself.
+ * Set --btn-width to the desired size of the button.
+ * Icon size can be smaller to whatever is desired for visual balance.
+ *
+ * See: https://dequeuniversity.com/rules/axe/4.12/target-size
+ */
+@utility touch-friendly-icon-btn {
+	--btn-width: 24px; /* default to min touch-friendly size */
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: max(var(--btn-width), 24px);
+	aspect-ratio: 1;
+}
+
+@utility link {
+	color: var(--primary);
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}

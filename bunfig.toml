@@ -1,0 +1,9 @@
+[install]
+# Only install package versions published at least 7 days ago
+minimumReleaseAge = 604800
+# These packages will bypass the 3-day minimum age requirement
+minimumReleaseAgeExcludes = ["@ssincorp/doodle", "@ssincorp/machines", "@ssincorp/utils"]
+
+# Uses .npmrc as first preference, so no need to add install.scopes
+# [install.scopes]
+# ssincorp = { token = "$NPM_TOKEN", url = "https://npm.pkg.github.com/" }
