@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
+const IGNORE_BUILD_ERRORS = process.env.IGNORE_BUILD_ERRORS === "true";
+
 const nextConfig: NextConfig = {
 	experimental: {
 		globalNotFound: true,
@@ -8,6 +10,9 @@ const nextConfig: NextConfig = {
 	poweredByHeader: false,
 	/* config options here */
 	reactCompiler: true,
+	typescript: {
+		ignoreBuildErrors: IGNORE_BUILD_ERRORS,
+	},
 };
 
 const withNextIntl = createNextIntlPlugin();
