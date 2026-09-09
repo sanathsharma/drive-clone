@@ -12,6 +12,8 @@
 		"stylelint": "stylelint --fix --config stylelint.config.mjs '**/*.css'",
 		"test": "vitest",
 		"test-storybook": "vitest --project=storybook",
+		"test:docker": "docker compose run --rm --build test",
+		"test:docker:watch": "docker compose run --rm --build test-watch",
 		"typecheck": "tsc --noEmit",
 		"update-outdated": "bun update"
 	},

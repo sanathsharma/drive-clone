@@ -1,6 +1,6 @@
 import addonPerformancePanel from "@github-ui/storybook-addon-performance-panel";
 import { definePreview } from "@storybook/nextjs-vite";
-import "../src/app/globals.css";
+import "../src/app/[locale]/globals.css";
 
 const preview = definePreview({
 	addons: [addonPerformancePanel()],

@@ -1,0 +1,19 @@
+services:
+  # One-shot run of the image exactly as built — no bind mount, so this is the
+  # same thing CI would run. Use via `bun run test:docker`.
+  test:
+    build: .
+    command: bunx vitest run
+
+  # Live loop: bind-mounts the repo so edits on the host are seen immediately,
+  # and runs vitest's own watch mode inside the container. `/app/node_modules`
+  # is kept as an anonymous volume so the Linux-built deps baked into the image
+  # aren't shadowed by whatever is (or isn't) in the host's node_modules.
+  test-watch:
+    build: .
+    command: bunx vitest watch
+    volumes:
+      - .:/app
+      - /app/node_modules
+    tty: true
+    stdin_open: true
