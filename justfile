@@ -58,3 +58,6 @@ import-env-from-doppler:
 
 add-component name:
 	bunx --bun shadcn@latest add {{name}}
+
+dbconnect:
+	dbconnect secretspec --profile default --scope dbui --vars DATABASE_URL

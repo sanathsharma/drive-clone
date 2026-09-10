@@ -7,8 +7,8 @@ import { routing } from "@/i18n/routing";
 import { Providers } from "@/lib/providers";
 
 export const metadata: Metadata = {
-	description: "ERP System",
-	title: "ERP System",
+	description: "Save your files to the cloud",
+	title: "Drive",
 };
 
 export function generateStaticParams() {
