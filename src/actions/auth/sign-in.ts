@@ -5,7 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { paths } from "@/constants/paths";
 import { redirect } from "@/i18n/navigation";
 import { auth } from "@/lib/auth/server";
-import { toFieldErrors } from "@/lib/errors";
+import { toFieldErrors } from "@/lib/form-errors";
 import passwordSchema from "./utils/password-schema";
 
 const schema = type({

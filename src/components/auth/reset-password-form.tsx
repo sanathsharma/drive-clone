@@ -10,8 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldDescription, FieldGroup, FieldLegend, FieldSet } from "@/components/ui/field";
 import { paths } from "@/constants/paths";
 import { Link } from "@/i18n/navigation";
-import { toErrorsMap } from "@/lib/errors";
 import { handleSubmit, useActionWithReset } from "@/lib/form";
+import { toErrorsMap } from "@/lib/form-errors";
 
 const TRANSLATIONS_KEY = "reset-password";
 

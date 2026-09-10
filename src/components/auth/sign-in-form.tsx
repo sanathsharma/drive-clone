@@ -9,8 +9,8 @@ import { Field, FieldError, FieldGroup, FieldLabel, FieldLegend, FieldSet } from
 import { Input } from "@/components/ui/input";
 import { paths } from "@/constants/paths";
 import { Link } from "@/i18n/navigation";
-import { toErrorsMap } from "@/lib/errors";
 import { handleSubmit } from "@/lib/form";
+import { toErrorsMap } from "@/lib/form-errors";
 
 const TRANSLATIONS_KEY = "sign-in";
 
