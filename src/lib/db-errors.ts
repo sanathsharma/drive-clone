@@ -1,6 +1,6 @@
 import "server-only";
 
-import { type ApiError, Conflict, InternalServerError, NotFound } from "@/lib/api-errors";
+import { ApiError, Conflict, InternalServerError, NotFound } from "@/lib/api-errors";
 import { Err, type Result } from "@/lib/result";
 
 // See https://www.postgresql.org/docs/current/errcodes-appendix.html
@@ -39,4 +39,17 @@ export function mapDbError(err: unknown): Result<never, ApiError> {
 		default:
 			return Err(new InternalServerError().setDebugCtx({ error: err }));
 	}
+}
+
+/**
+ * Like `mapDbError`, but for transactions whose body also throws deliberate `ApiError`s (e.g. an
+ * ownership check failing). Those pass through as-is instead of being misread as a Postgres error,
+ * since `ApiError` carries a string `code` field too. Meant to be used as `.catch(mapTxError)`.
+ */
+export function mapTxError(err: unknown): Result<never, ApiError> {
+	if (err instanceof ApiError) {
+		return Err(err);
+	}
+
+	return mapDbError(err);
 }
