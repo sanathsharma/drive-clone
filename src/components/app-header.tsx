@@ -20,6 +20,7 @@ export default async function AppHeader() {
 				<Image
 					alt="Drive"
 					height={24}
+					loading="eager"
 					src="/logo.svg"
 					width={24}
 				/>

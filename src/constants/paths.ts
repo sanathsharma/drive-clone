@@ -21,14 +21,6 @@ export const paths = {
 		},
 		signUp: () => "/auth/sign-up",
 	},
-	categories: () => "/categories",
-	dashboard: () => "/",
-	products: () => "/products",
-
-	reports: {
-		monthly: () => "/reports/monthly",
-		today: () => "/reports",
-		weekly: () => "/reports/weekly",
-	},
-	sales: () => "/sales",
+	folder: (folderId: string) => `/${folderId}`,
+	root: () => "/",
 };

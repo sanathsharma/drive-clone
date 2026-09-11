@@ -1,7 +1,9 @@
-export default function Home() {
+import FolderBreadcrumbs from "@/components/folder-breadcrumbs";
+
+export default async function Home() {
 	return (
 		<div className="main main--w-full main--h-header">
-			<h1>Home</h1>
+			<FolderBreadcrumbs />
 		</div>
-	)
+	);
 }

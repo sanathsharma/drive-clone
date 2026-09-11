@@ -167,11 +167,14 @@
 }
 
 @utility main {
+	--margin: calc(var(--spacing) * 2);
+	--padding-x: calc(var(--spacing) * 3);
+	--padding-y: calc(var(--spacing) * 2);
+
+	padding: var(--padding-y) var(--padding-x);
 	color: var(--foreground);
 	background-color: var(--background);
 	border-radius: var(--radius);
-
-	--margin: calc(var(--spacing) * 2);
 }
 
 @utility main--dim-full {
@@ -182,8 +185,8 @@
 
 @utility main--w-full {
 	width: calc(100% - var(--margin) * 2);
-	margin-left: var(--margin);
 	margin-right: var(--margin);
+	margin-left: var(--margin);
 }
 
 @utility main--h-header {
