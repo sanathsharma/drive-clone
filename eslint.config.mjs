@@ -5,6 +5,7 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 import storybook from "eslint-plugin-storybook";
+import servicesBoundary from "./eslint-rules/services-boundary.mjs";
 
 const eslintConfig = defineConfig([
 	...nextVitals,
@@ -22,6 +23,14 @@ const eslintConfig = defineConfig([
 	{
 		rules: {
 			"@typescript-eslint/no-explicit-any": "off",
+		},
+	},
+	{
+		plugins: {
+			"services-boundary": servicesBoundary,
+		},
+		rules: {
+			"services-boundary/no-cross-module-internals": "error",
 		},
 	},
 	...storybook.configs["flat/recommended"],
