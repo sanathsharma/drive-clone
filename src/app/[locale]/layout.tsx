@@ -26,6 +26,13 @@ export default async function RootLayout({ children }: LayoutProps<"/[locale]">)
 			className="font-sans h-full antialiased dark"
 			lang={locale}
 		>
+			<head>
+				<link
+					href="/logo.svg"
+					rel="icon"
+					sizes="any"
+				/>
+			</head>
 			<body className="min-h-full flex flex-col bg-crust text-foreground">
 				<Providers>{children}</Providers>
 			</body>

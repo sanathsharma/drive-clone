@@ -3,6 +3,7 @@ import "server-only";
 import { NextResponse } from "next/server";
 import { HTTP_STATUS, type HttpStatus } from "@/lib/http-status";
 import type { Result as TResult } from "@/lib/result";
+import logger from "./logger";
 
 export type Result<T> = TResult<T, ApiError>;
 
@@ -42,6 +43,7 @@ export class ApiError<D extends Record<string, unknown> = Record<string, unknown
 	}
 
 	toNextResponse() {
+		logger.debug({ client_error: this.toJSON(), server_details: this.debugCtx, status: this.status });
 		return NextResponse.json(this.toJSON(), { status: this.status });
 	}
 }

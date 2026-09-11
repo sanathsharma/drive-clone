@@ -44,7 +44,7 @@ const getSessionOptions = () => {
 	});
 };
 
-export const useSession = <T>(select?: (session: Session) => T) => {
+export const useSession = <T = Session>(select?: (session: Session) => T) => {
 	return useQuery({ ...getSessionOptions(), select });
 };
 

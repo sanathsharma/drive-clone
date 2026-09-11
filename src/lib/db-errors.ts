@@ -31,9 +31,6 @@ export function mapDbError(err: unknown): Result<never, ApiError> {
 	switch (err.code) {
 		case PG_ERROR_CODE.UNIQUE_VIOLATION:
 			return Err(new Conflict().setDebugCtx({ error: err }));
-		// FIXME: Only correct for insert/update, where the referenced row is missing. The same code fires on
-		// delete (row still referenced elsewhere), which is a Conflict, not a NotFound - revisit if/when
-		// this is used for delete paths.
 		case PG_ERROR_CODE.FOREIGN_KEY_VIOLATION:
 			return Err(new NotFound().setDebugCtx({ error: err }));
 		default:

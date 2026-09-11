@@ -50,6 +50,8 @@
 }
 
 :root {
+	--header-height: 56px;
+	--screen-height: 100dvh;
 	--font-sans: system-ui, sans-serif;
 	--font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", menlo, consolas, "DejaVu Sans Mono", monospace;
 
@@ -168,14 +170,25 @@
 	color: var(--foreground);
 	background-color: var(--background);
 	border-radius: var(--radius);
+
+	--margin: calc(var(--spacing) * 2);
 }
 
 @utility main--dim-full {
-	--margin: calc(var(--spacing) * 2);
-
 	width: calc(100% - var(--margin) * 2);
-	height: calc(100dvh - var(--margin) * 2);
+	height: calc(var(--screen-height) - var(--margin) * 2);
 	margin: var(--margin);
+}
+
+@utility main--w-full {
+	width: calc(100% - var(--margin) * 2);
+	margin-left: var(--margin);
+	margin-right: var(--margin);
+}
+
+@utility main--h-header {
+	height: calc(var(--screen-height) - var(--header-height) - var(--margin));
+	margin-bottom: var(--margin);
 }
 
 /* 
@@ -199,4 +212,10 @@
 	color: var(--primary);
 	text-decoration: underline;
 	text-underline-offset: 2px;
+}
+
+@utility c_outline-2 {
+	outline: var(--primary) solid 2px;
+	outline-offset: 4px;
+	border-radius: var(--radius);
 }
