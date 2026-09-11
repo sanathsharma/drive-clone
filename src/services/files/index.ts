@@ -7,6 +7,7 @@ import * as store from "@/services/files/store";
 import { touchAncestorChain } from "@/services/folders";
 import { getUser } from "@/services/utils";
 
+// Raw db shape, intentionally - see services/README.md#return-and-param-shapes-at-the-seam
 export type File_ForCreate = Omit<NewFile, "id" | "user_id" | "created_at" | "updated_at">;
 
 export async function createFile(file: File_ForCreate): Promise<Result<string>> {

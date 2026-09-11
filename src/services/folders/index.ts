@@ -6,6 +6,7 @@ import { Err, Ok } from "@/lib/result";
 import * as store from "@/services/folders/store";
 import { getUser } from "@/services/utils";
 
+// Raw db shape, intentionally - see services/README.md#return-and-param-shapes-at-the-seam
 export type Folder_ForCreate = Omit<NewFolder, "id" | "user_id" | "created_at" | "updated_at">;
 
 /**

@@ -7,8 +7,10 @@ import { Err, Ok } from "@/lib/result";
 import { getUser } from "@/services/utils";
 import { type Crumb, getBreadcrumbs, getFiles, getFolders } from "./store";
 
+// Raw db shape, intentionally - see services/README.md#return-and-param-shapes-at-the-seam
 export type { Crumb };
 
+// Raw db shape, intentionally - see services/README.md#return-and-param-shapes-at-the-seam
 export type Content = {
 	files: File[];
 	folders: Folder[];
