@@ -56,3 +56,6 @@ export function createError<D extends Record<string, unknown>>(code: string, sta
 
 export const Unauthenticated = createError("UNAUTHORIZED", HTTP_STATUS.UNAUTHORIZED);
 export const Unauthorized = createError("FORBIDDEN", HTTP_STATUS.FORBIDDEN);
+export const NotFound = createError("NOT_FOUND", HTTP_STATUS.NOT_FOUND);
+export const Conflict = createError("CONFLICT", HTTP_STATUS.CONFLICT);
+export const InternalServerError = createError("INTERNAL_SERVER_ERROR", HTTP_STATUS.INTERNAL_SERVER_ERROR);
