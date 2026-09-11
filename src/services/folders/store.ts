@@ -1,6 +1,7 @@
 import { and, eq, sql } from "drizzle-orm";
 import type { Transaction } from "@/db";
 import { foldersTable, type NewFolder } from "@/db/schema";
+import { ANCESTOR_CHAIN_CTE, ancestorChain } from "@/services/ancestor-chain";
 
 export async function createFolder(tx: Transaction, folder: NewFolder) {
 	const [{ insertedId }] = await tx.insert(foldersTable).values(folder).returning({ insertedId: foldersTable.id });
@@ -39,20 +40,10 @@ export async function touchAncestorChain(
 	{ startFolderId, user_id, updated_at }: TouchAncestorChainParams,
 ) {
 	const result = await tx.execute(sql`
-		WITH RECURSIVE ancestors AS (
-			SELECT id, parent_id
-			FROM folders
-			WHERE id = ${startFolderId} AND user_id = ${user_id}
-
-			UNION ALL
-
-			SELECT f.id, f.parent_id
-			FROM folders f
-			INNER JOIN ancestors a ON f.id = a.parent_id
-		)
+		${ancestorChain({ startFolderId, userId: user_id })}
 		UPDATE folders
 		SET updated_at = ${updated_at}
-		WHERE id IN (SELECT id FROM ancestors)
+		WHERE id IN (SELECT id FROM ${sql.raw(ANCESTOR_CHAIN_CTE)})
 	`);
 
 	return result.rowCount ?? 0;

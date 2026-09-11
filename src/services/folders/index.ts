@@ -8,6 +8,13 @@ import { getUser } from "@/services/utils";
 
 export type Folder_ForCreate = Omit<NewFolder, "id" | "user_id" | "created_at" | "updated_at">;
 
+/**
+ * Bumps `updated_at` on the folder at `startFolderId` and every ancestor above it up to the root.
+ * Exposed so other modules (e.g. `files`) can cascade a touch within their own transaction instead
+ * of reaching into folders' internal store.
+ */
+export const touchAncestorChain = store.touchAncestorChain;
+
 export async function createFolder(folder: Folder_ForCreate): Promise<Result<string>> {
 	const { data: user, error } = await getUser();
 	if (error) {

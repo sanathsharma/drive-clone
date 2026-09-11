@@ -4,7 +4,7 @@ import { NotFound, type Result } from "@/lib/api-errors";
 import { mapTxError } from "@/lib/db-errors";
 import { Err, Ok } from "@/lib/result";
 import * as store from "@/services/files/store";
-import * as folderStore from "@/services/folders/store";
+import { touchAncestorChain } from "@/services/folders";
 import { getUser } from "@/services/utils";
 
 export type File_ForCreate = Omit<NewFile, "id" | "user_id" | "created_at" | "updated_at">;
@@ -20,7 +20,7 @@ export async function createFile(file: File_ForCreate): Promise<Result<string>> 
 			// If parent_id is present, touch it and everything above it. Also confirms the parent belongs
 			// to the user and the file can be created under it.
 			if (file.parent_id) {
-				const touched = await folderStore.touchAncestorChain(tx, {
+				const touched = await touchAncestorChain(tx, {
 					startFolderId: file.parent_id,
 					updated_at: new Date(),
 					user_id: user.id,
@@ -50,7 +50,7 @@ export async function deleteFile(id: string): Promise<Result<void>> {
 			}
 
 			if (deleted.parent_id) {
-				await folderStore.touchAncestorChain(tx, {
+				await touchAncestorChain(tx, {
 					startFolderId: deleted.parent_id,
 					updated_at: new Date(),
 					user_id: user.id,
