@@ -22,26 +22,26 @@ export type Crumb = {
 	id: string;
 	name: string;
 	parent_id: string;
-	depth: number;
+	distance: number;
 };
 
 export const getBreadcrumbs = async (currentFolderId: string, userId: string) => {
 	const query = sql`
 		WITH RECURSIVE folder_tree AS (
-				SELECT id, name, parent_id, 1 AS depth
+				SELECT id, name, parent_id, 0 AS distance
 				FROM folders
 				WHERE id = ${currentFolderId}
 					AND user_id = ${userId}
 
 				UNION ALL
 
-				SELECT f.id, f.name, f.parent_id, ft.depth + 1
+				SELECT f.id, f.name, f.parent_id, ft.distance + 1
 				FROM folders f
-				INNER JOIN folder_tree ft ON f.parent_id = ft.id
+				INNER JOIN folder_tree ft ON f.id = ft.parent_id
 				WHERE f.user_id = ${userId}
 		)
-		SELECT * FROM folder_tree
-		ORDER BY depth;
+		SELECT id, name, parent_id FROM folder_tree
+		ORDER BY distance DESC;
 	`;
 
 	const { rows } = await db.execute(query);
