@@ -29,7 +29,7 @@ export default function UserDropdown() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger
-				className="focus:c_outline rounded-full"
+				className="focus-visible:c_outline rounded-full"
 				render={
 					<button type="button">
 						<UserAvatar />
