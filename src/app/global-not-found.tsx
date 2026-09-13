@@ -33,7 +33,7 @@ export default async function GlobalNotFound() {
 						<EmptyContent>
 							<a
 								className={cn(buttonVariants({ size: "sm", variant: "link" }))}
-								href={paths.dashboard()}
+								href={paths.root()}
 							>
 								Take me home{" "}
 								<ArrowUpIcon

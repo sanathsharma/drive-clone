@@ -52,7 +52,7 @@ export async function signUpWithEmailAndPassword(locale: string, _: FormState, f
 
 	// successful sign-up also logs the user in, so redirect to the dashboard
 	redirect({
-		href: paths.dashboard(),
+		href: paths.root(),
 		locale,
 	});
 }

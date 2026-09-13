@@ -19,7 +19,7 @@ const checkAuthenticationStatus = async (request: NextRequest) => {
 async function keepLoggedInUsersOut(request: NextRequest) {
 	const isLoggedIn = await checkAuthenticationStatus(request);
 	if (isLoggedIn) {
-		return NextResponse.redirect(new URL(paths.dashboard(), request.url));
+		return NextResponse.redirect(new URL(paths.root(), request.url));
 	}
 	return localProxy(request);
 }

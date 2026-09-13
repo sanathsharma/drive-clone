@@ -48,7 +48,7 @@ export async function signInWithEmailAndPassword(locale: string, _: FormState, f
 	}
 
 	redirect({
-		href: paths.dashboard(),
+		href: paths.root(),
 		locale,
 	});
 }
