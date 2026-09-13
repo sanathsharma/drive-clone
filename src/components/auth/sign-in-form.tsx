@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useActionState } from "react";
 import * as actions from "@/actions/auth";
 import * as PasswordField from "@/components/auth/password-field";
+import { FormError } from "@/components/form-error";
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel, FieldLegend, FieldSet } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -69,7 +70,16 @@ export default function SignInForm() {
 							{t("forgot-password-cta")}
 						</Link>
 					</Field>
-					{/* TODO: show alert for errors._form */}
+
+					<Field orientation="horizontal">
+						{errorsMap.has("_form") && (
+							<FormError
+								errors={errorsMap.get("_form")}
+								title={t("failed-to-sign-in")}
+							/>
+						)}
+					</Field>
+
 					<Field orientation="horizontal">
 						<Button
 							className="w-full"
