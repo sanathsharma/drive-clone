@@ -60,4 +60,6 @@ export const Unauthenticated = createError("UNAUTHORIZED", HTTP_STATUS.UNAUTHORI
 export const Unauthorized = createError("FORBIDDEN", HTTP_STATUS.FORBIDDEN);
 export const NotFound = createError("NOT_FOUND", HTTP_STATUS.NOT_FOUND);
 export const Conflict = createError("CONFLICT", HTTP_STATUS.CONFLICT);
+export const BadRequest = createError("BAD_REQUEST", HTTP_STATUS.BAD_REQUEST);
+export const PayloadTooLarge = createError("PAYLOAD_TOO_LARGE", HTTP_STATUS.PAYLOAD_TOO_LARGE);
 export const InternalServerError = createError("INTERNAL_SERVER_ERROR", HTTP_STATUS.INTERNAL_SERVER_ERROR);
