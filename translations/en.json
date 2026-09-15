@@ -93,6 +93,10 @@
 	},
 	"upload-files": {
 		"drag-active-title": "Drop files to upload them to",
-		"files-count-label": "{count, plural, one {# file} other {# files}}"
+		"files-count-label": "{count, plural, one {# file} other {# files}}",
+		"folder-rejected": "Folders can't be uploaded - drop individual files instead",
+		"upload-failed": "Couldn't upload {name}",
+		"uploaded": "{name} uploaded",
+		"uploading": "Uploading {name}..."
 	}
 }

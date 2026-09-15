@@ -10,7 +10,7 @@ import {
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { config } from "@/constants";
 
-const BUCKET = "assets";
+const BUCKET = "files";
 
 const s3 = new S3Client({
 	credentials: {

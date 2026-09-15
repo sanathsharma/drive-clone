@@ -1,6 +1,7 @@
 export * from "./container";
 export { useDragCount } from "./drag-count-context";
 export * from "./dropzone";
+export * from "./upload-dropzone";
 
 import { Content, Root } from "./drag-active";
 
