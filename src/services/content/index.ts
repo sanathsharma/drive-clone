@@ -16,7 +16,7 @@ export type Content = {
 	folders: Folder[];
 };
 
-export async function get(currentFolderId: string): Promise<Result<Content>> {
+export async function get(currentFolderId?: string): Promise<Result<Content>> {
 	const { data: user, error } = await getUser();
 	if (error) {
 		return Err(error);

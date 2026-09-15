@@ -6,14 +6,17 @@ import { Content, Root } from "@/components/content/drag-active";
 import { Dropzone } from "@/components/content/dropzone";
 import { isFromDirectory, uploadFile } from "@/components/content/upload";
 import { toast } from "@/components/ui/toast";
+import { useRouter } from "@/i18n/navigation";
 
 type Props = {
 	folderName: string;
 	parentId?: string;
+	children?: React.ReactNode;
 };
 
-export function UploadDropzone({ folderName, parentId }: Props) {
+export function UploadDropzone({ folderName, parentId, children }: Props) {
 	const t = useTranslations("upload-files");
+	const router = useRouter();
 
 	const onDrop: DropzoneOptions["onDrop"] = (acceptedFiles) => {
 		for (const file of acceptedFiles) {
@@ -22,15 +25,18 @@ export function UploadDropzone({ folderName, parentId }: Props) {
 				continue;
 			}
 
-			toast.promise(uploadFile(file, parentId), {
-				error: (err) => ({
-					description: err instanceof Error ? err.message : undefined,
-					title: t("upload-failed", { name: file.name }),
-					type: "error",
-				}),
-				loading: { title: t("uploading", { name: file.name }), type: "loading" },
-				success: { title: t("uploaded", { name: file.name }), type: "success" },
-			});
+			toast.promise(
+				uploadFile(file, parentId).then(() => router.refresh()),
+				{
+					error: (err) => ({
+						description: err instanceof Error ? err.message : undefined,
+						title: t("upload-failed", { name: file.name }),
+						type: "error",
+					}),
+					loading: { title: t("uploading", { name: file.name }), type: "loading" },
+					success: { title: t("uploaded", { name: file.name }), type: "success" },
+				},
+			);
 		}
 	};
 
@@ -42,6 +48,8 @@ export function UploadDropzone({ folderName, parentId }: Props) {
 				</Root>
 			}
 			onDrop={onDrop}
-		/>
+		>
+			{children}
+		</Dropzone>
 	);
 }

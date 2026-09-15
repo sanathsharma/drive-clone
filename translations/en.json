@@ -1,4 +1,60 @@
 {
+	"content": {
+		"actions-panel": {
+			"cancel-select": "Cancel",
+			"select": "Select",
+			"upload": "Upload"
+		},
+		"create-folder-dialog": {
+			"cancel": "Cancel",
+			"description": "Give your folder a name.",
+			"errors": {
+				"name": {
+					"default": "Invalid {path}"
+				}
+			},
+			"failed": "Couldn't create the folder",
+			"name-label": "Folder name",
+			"name-placeholder": "Untitled folder",
+			"pending": "Creating...",
+			"submit": "Create",
+			"title": "New folder",
+			"trigger-label": "New folder"
+		},
+		"delete-dialog": {
+			"cancel": "Cancel",
+			"confirm": "Delete",
+			"delete-count": "Delete ({count})",
+			"delete-failed": "Couldn't delete \"{name}\"",
+			"delete-selected-failed": "Couldn't delete the selected items",
+			"deleted": "\"{name}\" deleted",
+			"deleted-count": "{count, plural, one {# item} other {# items}} deleted",
+			"deleting": "Deleting...",
+			"description-bulk": "This permanently deletes the selected items. This can't be undone.",
+			"description-file": "This permanently deletes the file. This can't be undone.",
+			"description-folder": "This permanently deletes the folder and everything inside it. This can't be undone.",
+			"title-bulk": "Delete {count, plural, one {# item} other {# items}}?",
+			"title-single": "Delete \"{name}\"?"
+		},
+		"open-file": {
+			"failed": "Couldn't open \"{name}\""
+		},
+		"table": {
+			"created": "Created",
+			"delete": "Delete",
+			"empty-description": "Upload files or create a folder to get started.",
+			"empty-title": "This folder is empty",
+			"name": "Name",
+			"open-menu": "Open menu",
+			"select-all": "Select all",
+			"select-row": "Select {name}",
+			"size": "Size",
+			"type": "Type",
+			"type-folder": "Folder",
+			"updated": "Updated",
+			"upload-cta": "Upload"
+		}
+	},
 	"email-sent": {
 		"back-to-sign-in": "Back to Sign In",
 		"description": "Instructions to reset you password are sent to your email. The link opens once and expires in 1 hour.",

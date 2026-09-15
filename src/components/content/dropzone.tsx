@@ -1,6 +1,8 @@
 "use client";
 
+import { useEffect } from "react";
 import { type DropzoneOptions, useDropzone } from "react-dropzone";
+import { useContentArea } from "./area";
 import { Container } from "./container";
 import { DragCountContext, useDragCountCallbacks } from "./drag-count-context";
 
@@ -11,8 +13,9 @@ type Props = {
 };
 
 export function Dropzone({ children, dragActive, onDrop }: Props) {
+	const area = useContentArea();
 	const { dragCount, onDragEnter, onDragLeave, onDrop: _onDrop } = useDragCountCallbacks();
-	const { getRootProps, getInputProps, isDragActive } = useDropzone({
+	const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
 		noClick: true,
 		onDragEnter,
 		onDragLeave,
@@ -21,6 +24,13 @@ export function Dropzone({ children, dragActive, onDrop }: Props) {
 			onDrop?.(...args);
 		},
 	});
+
+	// Lets a button outside this component (e.g. next to the breadcrumb) open the same
+	// file-browser dialog, since `noClick` above disables click-to-browse on the dropzone itself.
+	useEffect(() => {
+		area?.registerFilePicker(open);
+		return () => area?.registerFilePicker(null);
+	}, [area, open]);
 
 	return (
 		<DragCountContext.Provider value={dragCount}>

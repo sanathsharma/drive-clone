@@ -27,6 +27,7 @@ export async function RestItems({ crumbs }: { crumbs: Crumb[] }) {
 		if (isLast) {
 			return (
 				<Fragment key={crumb.id}>
+					<BreadcrumbSeparator />
 					<BreadcrumbItem>
 						<BreadcrumbPage>{crumb.name}</BreadcrumbPage>
 					</BreadcrumbItem>
@@ -50,7 +51,7 @@ export async function RestItems({ crumbs }: { crumbs: Crumb[] }) {
 export function HomeItem() {
 	return (
 		<BreadcrumbItem>
-			<BreadcrumbLink render={<Link href={paths.root()}>Home</Link>} />
+			<BreadcrumbLink render={<Link href={paths.root()}>My Drive</Link>} />
 		</BreadcrumbItem>
 	);
 }
