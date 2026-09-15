@@ -14,6 +14,7 @@ import UserAvatar from "@/components/user-avatar";
 
 const LogoutItem = () => {
 	const { locale } = useParams<{ locale: string }>();
+	// FIXME: add stansaction spinner or line loader at the top of the viewport
 	const [_isPending, startTransition] = useTransition();
 
 	const onClick = () => {
@@ -36,7 +37,7 @@ export default function UserDropdown() {
 					</button>
 				}
 			/>
-			<DropdownMenuContent>
+			<DropdownMenuContent sideOffset={5}>
 				<DropdownMenuGroup>
 					<LogoutItem />
 				</DropdownMenuGroup>

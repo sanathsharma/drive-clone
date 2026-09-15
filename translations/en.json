@@ -90,5 +90,9 @@
 		"sign-up-button": "Continue",
 		"sign-up-pending": "Signing up...",
 		"title": "Sign up"
+	},
+	"upload-files": {
+		"drag-active-title": "Drop files to upload them to",
+		"files-count-label": "{count, plural, one {# file} other {# files}}"
 	}
 }
