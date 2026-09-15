@@ -1,10 +1,11 @@
 "use client";
 
-import { MoreHorizontalIcon, Trash2Icon } from "lucide-react";
+import { MoreHorizontalIcon, PencilIcon, Trash2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import * as fileActions from "@/actions/files";
 import * as folderActions from "@/actions/folders";
+import { RenameDialog } from "@/components/content/rename-dialog";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -34,6 +35,7 @@ type Props = {
 export function ActionsCell({ row, parentId }: Props) {
 	const t = useTranslations("content");
 	const [confirmOpen, setConfirmOpen] = useState(false);
+	const [renameOpen, setRenameOpen] = useState(false);
 	const [isPending, startTransition] = useTransition();
 
 	const onConfirmDelete = () => {
@@ -69,6 +71,10 @@ export function ActionsCell({ row, parentId }: Props) {
 					}
 				/>
 				<DropdownMenuContent align="end">
+					<DropdownMenuItem onClick={() => setRenameOpen(true)}>
+						<PencilIcon />
+						{t("table.rename")}
+					</DropdownMenuItem>
 					<DropdownMenuItem
 						onClick={() => setConfirmOpen(true)}
 						variant="destructive"
@@ -78,6 +84,13 @@ export function ActionsCell({ row, parentId }: Props) {
 					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
+
+			<RenameDialog
+				onOpenChange={setRenameOpen}
+				open={renameOpen}
+				parentId={parentId}
+				row={row}
+			/>
 
 			<AlertDialog
 				onOpenChange={setConfirmOpen}

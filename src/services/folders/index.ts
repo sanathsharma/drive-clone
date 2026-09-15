@@ -67,3 +67,20 @@ export async function deleteFolder(id: string): Promise<Result<void>> {
 		.then(() => Ok(undefined))
 		.catch(mapTxError);
 }
+
+export async function renameFolder(id: string, name: string): Promise<Result<void>> {
+	const { data: user, error } = await getUser();
+	if (error) {
+		return Err(error);
+	}
+
+	return dbTx
+		.transaction(async (tx) => {
+			const renamed = await store.renameFolder(tx, { id, name, user_id: user.id });
+			if (!renamed) {
+				throw new NotFound().setDebugCtx({ id });
+			}
+		})
+		.then(() => Ok(undefined))
+		.catch(mapTxError);
+}

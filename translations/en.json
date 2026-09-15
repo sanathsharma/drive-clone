@@ -2,6 +2,7 @@
 	"content": {
 		"actions-panel": {
 			"cancel-select": "Cancel",
+			"search": "Search",
 			"select": "Select",
 			"upload": "Upload"
 		},
@@ -39,6 +40,20 @@
 		"open-file": {
 			"failed": "Couldn't open \"{name}\""
 		},
+		"rename-dialog": {
+			"cancel": "Cancel",
+			"description": "Give it a new name.",
+			"errors": {
+				"name": {
+					"default": "Invalid {path}"
+				}
+			},
+			"failed": "Couldn't rename",
+			"name-label": "Name",
+			"pending": "Renaming...",
+			"submit": "Rename",
+			"title": "Rename \"{name}\""
+		},
 		"table": {
 			"created": "Created",
 			"delete": "Delete",
@@ -46,6 +61,8 @@
 			"empty-title": "This folder is empty",
 			"name": "Name",
 			"open-menu": "Open menu",
+			"rename": "Rename",
+			"search-empty": "No files or folders match \"{query}\"",
 			"select-all": "Select all",
 			"select-row": "Select {name}",
 			"size": "Size",

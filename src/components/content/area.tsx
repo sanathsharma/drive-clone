@@ -13,6 +13,8 @@ type ContentAreaContextValue = {
 	toggleSelectAll: (items: { id: string; type: ContentType }[]) => void;
 	openFilePicker: () => void;
 	registerFilePicker: (open: (() => void) | null) => void;
+	search: string;
+	setSearch: (search: string) => void;
 };
 
 const ContentAreaContext = createContext<ContentAreaContextValue | null>(null);
@@ -28,6 +30,7 @@ type Props = {
 export function ContentArea({ children }: Props) {
 	const [selectMode, setSelectMode] = useState(false);
 	const [selected, setSelected] = useState<Map<string, ContentType>>(new Map());
+	const [search, setSearch] = useState("");
 	const filePickerRef = useRef<(() => void) | null>(null);
 
 	const toggleSelectMode = useCallback(() => {
@@ -74,8 +77,10 @@ export function ContentArea({ children }: Props) {
 			exitSelectMode,
 			openFilePicker,
 			registerFilePicker,
+			search,
 			selected,
 			selectMode,
+			setSearch,
 			toggleSelectAll,
 			toggleSelected,
 			toggleSelectMode,
@@ -84,6 +89,7 @@ export function ContentArea({ children }: Props) {
 			exitSelectMode,
 			openFilePicker,
 			registerFilePicker,
+			search,
 			selectMode,
 			selected,
 			toggleSelectAll,

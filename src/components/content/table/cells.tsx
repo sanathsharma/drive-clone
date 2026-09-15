@@ -47,7 +47,7 @@ export function NameCell({ row, onOpen }: { row: Row; onOpen: () => void }) {
 
 export function TypeCell({ row, folderLabel }: { row: Row; folderLabel: string }) {
 	return (
-		<TableCell className="text-muted-foreground">
+		<TableCell className="truncate text-muted-foreground">
 			{row.type === "folder" ? folderLabel : (row.mime_type ?? "-")}
 		</TableCell>
 	);

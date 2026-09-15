@@ -3,18 +3,56 @@
 import { cn } from "cn";
 import type * as React from "react";
 
-function Table({ className, ...props }: React.ComponentProps<"table">) {
+function TableContainer({ className, ...props }: React.ComponentProps<"div">) {
 	return (
 		<div
-			className="relative w-full overflow-x-auto"
+			className={cn("relative w-full overflow-x-auto", className)}
 			data-slot="table-container"
-		>
-			<table
-				className={cn("w-full caption-bottom text-sm", className)}
-				data-slot="table"
-				{...props}
-			/>
-		</div>
+			{...props}
+		/>
+	);
+}
+
+function Table({ className, ...props }: React.ComponentProps<"table">) {
+	return (
+		<table
+			className={cn("w-full caption-bottom text-sm", className)}
+			data-slot="table"
+			{...props}
+		/>
+	);
+}
+
+/**
+ * A width for one `<col>`: a ratio unit (normalized against `total`), `"auto"` to defer to
+ * whatever width the column's own `<th>`/`<td>` cells declare, or any other string as a literal
+ * CSS width (e.g. `"2rem"`, `"48px"`).
+ */
+export type TableColWidth = number | "auto" | string;
+
+type TableColGroupProps = {
+	/** One entry per `<col>`, in column order. */
+	widths: TableColWidth[];
+	/** Denominator for the ratio math: a numeric entry renders as `${entry / total * 100}%`. */
+	total: number;
+};
+
+function TableColGroup({ widths, total }: TableColGroupProps) {
+	return (
+		<colgroup data-slot="table-colgroup">
+			{widths.map((width, index) => {
+				const style =
+					typeof width === "number" ? { width: `${(width / total) * 100}%` } : width === "auto" ? undefined : { width };
+
+				return (
+					<col
+						// biome-ignore lint/suspicious/noArrayIndexKey: a <col> at position `index` always governs the table's `index`-th column - the index is its actual identity, and this list never reorders
+						key={index}
+						style={style}
+					/>
+				);
+			})}
+		</colgroup>
 	);
 }
 
@@ -94,4 +132,15 @@ function TableCaption({ className, ...props }: React.ComponentProps<"caption">) 
 	);
 }
 
-export { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow };
+export {
+	Table,
+	TableBody,
+	TableCaption,
+	TableCell,
+	TableColGroup,
+	TableContainer,
+	TableFooter,
+	TableHead,
+	TableHeader,
+	TableRow,
+};

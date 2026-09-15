@@ -23,6 +23,22 @@ export async function deleteFolder(tx: Transaction, { id, user_id }: DeleteFolde
 	return deleted;
 }
 
+type RenameFolderParams = {
+	id: string;
+	user_id: string;
+	name: string;
+};
+
+/** Renames the folder. Returns true if a row was updated, false if no matching row was found (wrong id, or not owned by user_id). */
+export async function renameFolder(tx: Transaction, { id, user_id, name }: RenameFolderParams) {
+	const result = await tx
+		.update(foldersTable)
+		.set({ name, updated_at: new Date() })
+		.where(and(eq(foldersTable.id, id), eq(foldersTable.user_id, user_id)));
+
+	return (result.rowCount ?? 0) > 0;
+}
+
 type TouchAncestorChainParams = {
 	startFolderId: string;
 	user_id: string;

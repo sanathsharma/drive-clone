@@ -1,9 +1,9 @@
 "use client";
 
-import { FolderPlusIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useActionState, useId, useState } from "react";
-import * as actions from "@/actions/folders";
+import { useActionState, useEffect, useId } from "react";
+import * as fileActions from "@/actions/files";
+import * as folderActions from "@/actions/folders";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -13,67 +13,52 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-	DialogTrigger,
 } from "@/components/ui/dialog";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { handleSubmit, useActionWithReset } from "@/lib/form";
 import { toErrorsMap } from "@/lib/form-errors";
+import type { Row } from "./table/types";
 
 type Props = {
+	row: Row;
 	parentId?: string;
-	trigger?: "icon" | "text";
+	open: boolean;
+	onOpenChange: (open: boolean) => void;
 };
 
 const initialState = { errors: {}, success: false };
 
-export function CreateFolderDialog({ parentId, trigger = "icon" }: Props) {
-	const t = useTranslations("content.create-folder-dialog");
-	const [open, setOpen] = useState(false);
-	const [formRef, boundAction] = useActionWithReset(actions.createFolder.bind(null, parentId));
+export function RenameDialog({ row, parentId, open, onOpenChange }: Props) {
+	const t = useTranslations("content.rename-dialog");
+	const renameAction = row.type === "folder" ? folderActions.renameFolder : fileActions.renameFile;
+	const [formRef, boundAction] = useActionWithReset(renameAction.bind(null, row.id, parentId));
 	const [state, action, isPending] = useActionState(boundAction, initialState);
 	const nameId = useId();
 
-	// Closes the dialog once the action resolves successfully. Adjusting state during
-	// render (rather than in an effect) avoids an extra commit - see
-	// https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
-	const [handledState, setHandledState] = useState(state);
-	if (state !== handledState) {
-		setHandledState(state);
+	// `onOpenChange` updates a different component's state (the dropdown that owns `open`),
+	// so this has to be an effect, not an in-render state adjustment - the latter is only
+	// safe for a component adjusting its own state during its own render.
+	useEffect(() => {
 		if (state.success) {
-			setOpen(false);
+			onOpenChange(false);
 		}
-	}
+	}, [state, onOpenChange]);
 
 	const errorsMap = toErrorsMap(state.errors);
 
 	return (
 		<Dialog
-			onOpenChange={setOpen}
+			onOpenChange={onOpenChange}
 			open={open}
 		>
-			<DialogTrigger
-				render={
-					trigger === "icon" ? (
-						<Button
-							aria-label={t("trigger-label")}
-							size="icon"
-							variant="outline"
-						>
-							<FolderPlusIcon />
-						</Button>
-					) : (
-						<Button variant="outline">{t("trigger-label")}</Button>
-					)
-				}
-			/>
 			<DialogContent>
 				<form
 					onSubmit={handleSubmit(action)}
 					ref={formRef}
 				>
 					<DialogHeader>
-						<DialogTitle>{t("title")}</DialogTitle>
+						<DialogTitle>{t("title", { name: row.name })}</DialogTitle>
 						<DialogDescription>{t("description")}</DialogDescription>
 					</DialogHeader>
 
@@ -83,9 +68,10 @@ export function CreateFolderDialog({ parentId, trigger = "icon" }: Props) {
 							<Input
 								aria-invalid={errorsMap.has("name")}
 								autoFocus
+								defaultValue={row.name}
 								id={nameId}
+								key={row.name}
 								name="name"
-								placeholder={t("name-placeholder")}
 							/>
 							<FieldError errors={errorsMap.get("name")} />
 						</Field>

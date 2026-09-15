@@ -145,3 +145,20 @@ export async function deleteFile(id: string): Promise<Result<void>> {
 		})
 		.catch(mapTxError);
 }
+
+export async function renameFile(id: string, name: string): Promise<Result<void>> {
+	const { data: user, error } = await getUser();
+	if (error) {
+		return Err(error);
+	}
+
+	return dbTx
+		.transaction(async (tx) => {
+			const renamed = await store.renameFile(tx, { id, name, user_id: user.id });
+			if (!renamed) {
+				throw new NotFound().setDebugCtx({ id });
+			}
+		})
+		.then(() => Ok(undefined))
+		.catch(mapTxError);
+}

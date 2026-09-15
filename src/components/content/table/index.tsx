@@ -1,8 +1,9 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { useContentArea } from "@/components/content/area";
-import { Table, TableBody } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableColGroup, type TableColWidth, TableRow } from "@/components/ui/table";
 import type { File, Folder } from "@/db/schema";
 import { ContentEmptyState } from "./empty-state";
 import { ContentTableHeader } from "./header";
@@ -22,11 +23,18 @@ function compareRows(a: Row, b: Row, key: SortKey) {
 	return a[key].getTime() - b[key].getTime();
 }
 
+// name : type : size : created : updated - keep in sync with the columns rendered in
+// ContentTableHeader/ContentTableRow. The checkbox and actions columns are "auto" - they defer to
+// their own w-8 <th>/<td> classes instead of taking a share of this ratio.
+const COLUMN_RATIO_TOTAL = 10;
+const DATA_COLUMN_WIDTHS: TableColWidth[] = ["auto", 1, 1, 2, 2];
+
 export function ContentTable({ files, folders, parentId }: Props) {
+	const t = useTranslations("content.table");
 	const area = useContentArea();
 	const [sort, setSort] = useState<SortState>({ direction: "asc", key: "name" });
 
-	const rows = useMemo<Row[]>(() => {
+	const allRows = useMemo<Row[]>(() => {
 		const folderRows: Row[] = folders.map((folder) => ({ ...folder, type: "folder" as const }));
 		const fileRows: Row[] = files.map((file) => ({ ...file, type: "file" as const }));
 
@@ -39,9 +47,12 @@ export function ContentTable({ files, folders, parentId }: Props) {
 		return [...sortGroup(folderRows), ...sortGroup(fileRows)];
 	}, [files, folders, sort]);
 
-	if (rows.length === 0) {
+	if (allRows.length === 0) {
 		return <ContentEmptyState parentId={parentId} />;
 	}
+
+	const search = area?.search.trim().toLowerCase() ?? "";
+	const rows = search ? allRows.filter((row) => row.name.toLowerCase().includes(search)) : allRows;
 
 	const onSortChange = (key: SortKey) => {
 		setSort((prev) => {
@@ -56,8 +67,14 @@ export function ContentTable({ files, folders, parentId }: Props) {
 		area?.toggleSelectAll(rows.map((row) => ({ id: row.id, type: row.type })));
 	};
 
+	const widths: TableColWidth[] = [...(area?.selectMode ? (["auto"] as const) : []), ...DATA_COLUMN_WIDTHS, "3rem"];
+
 	return (
-		<Table>
+		<Table className="table-fixed">
+			<TableColGroup
+				total={COLUMN_RATIO_TOTAL}
+				widths={widths}
+			/>
 			<ContentTableHeader
 				onSortChange={onSortChange}
 				onToggleSelectAll={onToggleSelectAll}
@@ -65,13 +82,24 @@ export function ContentTable({ files, folders, parentId }: Props) {
 				sort={sort}
 			/>
 			<TableBody>
-				{rows.map((row) => (
-					<ContentTableRow
-						key={row.id}
-						parentId={parentId}
-						row={row}
-					/>
-				))}
+				{rows.length === 0 ? (
+					<TableRow>
+						<TableCell
+							className="h-24 text-center text-muted-foreground"
+							colSpan={area?.selectMode ? 7 : 6}
+						>
+							{t("search-empty", { query: area?.search ?? "" })}
+						</TableCell>
+					</TableRow>
+				) : (
+					rows.map((row) => (
+						<ContentTableRow
+							key={row.id}
+							parentId={parentId}
+							row={row}
+						/>
+					))
+				)}
 			</TableBody>
 		</Table>
 	);

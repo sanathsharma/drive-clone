@@ -22,6 +22,22 @@ export async function deleteFile(tx: Transaction, { id, user_id }: DeleteFilePar
 	return deleted;
 }
 
+type RenameFileParams = {
+	id: string;
+	user_id: string;
+	name: string;
+};
+
+/** Renames the file. Returns true if a row was updated, false if no matching row was found (wrong id, or not owned by user_id). */
+export async function renameFile(tx: Transaction, { id, user_id, name }: RenameFileParams) {
+	const result = await tx
+		.update(filesTable)
+		.set({ name, updated_at: new Date() })
+		.where(and(eq(filesTable.id, id), eq(filesTable.user_id, user_id)));
+
+	return (result.rowCount ?? 0) > 0;
+}
+
 type GetFileParams = {
 	id: string;
 	user_id: string;

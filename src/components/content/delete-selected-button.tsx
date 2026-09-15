@@ -60,7 +60,6 @@ export function DeleteSelectedButton({ parentId }: Props) {
 			<AlertDialogTrigger
 				render={
 					<Button
-						size="sm"
 						variant="destructive"
 					>
 						<Trash2Icon />
