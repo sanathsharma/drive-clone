@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { handleSubmit, useActionWithReset } from "@/lib/form";
+import { handleSubmit } from "@/lib/form";
 import { toErrorsMap } from "@/lib/form-errors";
 
 type Props = {
@@ -30,8 +30,7 @@ const initialState = { errors: {}, success: false };
 export function CreateFolderDialog({ parentId, trigger = "icon" }: Props) {
 	const t = useTranslations("content.create-folder-dialog");
 	const [open, setOpen] = useState(false);
-	const [formRef, boundAction] = useActionWithReset(actions.createFolder.bind(null, parentId));
-	const [state, action, isPending] = useActionState(boundAction, initialState);
+	const [state, action, isPending] = useActionState(actions.createFolder.bind(null, parentId), initialState);
 	const nameId = useId();
 
 	// Closes the dialog once the action resolves successfully. Adjusting state during
@@ -68,10 +67,7 @@ export function CreateFolderDialog({ parentId, trigger = "icon" }: Props) {
 				}
 			/>
 			<DialogContent>
-				<form
-					onSubmit={handleSubmit(action)}
-					ref={formRef}
-				>
+				<form onSubmit={handleSubmit(action)}>
 					<DialogHeader>
 						<DialogTitle>{t("title")}</DialogTitle>
 						<DialogDescription>{t("description")}</DialogDescription>

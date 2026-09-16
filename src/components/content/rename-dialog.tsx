@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { handleSubmit, useActionWithReset } from "@/lib/form";
+import { handleSubmit } from "@/lib/form";
 import { toErrorsMap } from "@/lib/form-errors";
 import type { Row } from "./table/types";
 
@@ -32,8 +32,7 @@ const initialState = { errors: {}, success: false };
 export function RenameDialog({ row, parentId, open, onOpenChange }: Props) {
 	const t = useTranslations("content.rename-dialog");
 	const renameAction = row.type === "folder" ? folderActions.renameFolder : fileActions.renameFile;
-	const [formRef, boundAction] = useActionWithReset(renameAction.bind(null, row.id, parentId));
-	const [state, action, isPending] = useActionState(boundAction, initialState);
+	const [state, action, isPending] = useActionState(renameAction.bind(null, row.id, parentId), initialState);
 	const nameId = useId();
 
 	// `onOpenChange` updates a different component's state (the dropdown that owns `open`),
@@ -53,10 +52,7 @@ export function RenameDialog({ row, parentId, open, onOpenChange }: Props) {
 			open={open}
 		>
 			<DialogContent>
-				<form
-					onSubmit={handleSubmit(action)}
-					ref={formRef}
-				>
+				<form onSubmit={handleSubmit(action)}>
 					<DialogHeader>
 						<DialogTitle>{t("title", { name: row.name })}</DialogTitle>
 						<DialogDescription>{t("description")}</DialogDescription>
