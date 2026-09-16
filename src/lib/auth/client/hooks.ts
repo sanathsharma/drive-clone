@@ -25,6 +25,7 @@ export const useInvalidateSession = () => {
 
 export type Session = typeof authClient.$Infer.Session;
 
+export const NO_ACTIVE_SESSION_ERROR = new Error("No active session");
 const getSessionOptions = () => {
 	return queryOptions<Session>({
 		queryFn: async () => {
@@ -35,7 +36,7 @@ const getSessionOptions = () => {
 			}
 
 			if (!result.data) {
-				throw new Error("No active session");
+				throw NO_ACTIVE_SESSION_ERROR;
 			}
 
 			return result.data;

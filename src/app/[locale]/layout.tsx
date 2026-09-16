@@ -3,6 +3,7 @@ import "./globals.css";
 import { notFound } from "next/navigation";
 import * as rootParams from "next/root-params";
 import { hasLocale } from "next-intl";
+import RegisterSW from "@/app/register-sw";
 import { routing } from "@/i18n/routing";
 import { Providers } from "@/lib/providers";
 
@@ -27,13 +28,13 @@ export default async function RootLayout({ children }: LayoutProps<"/[locale]">)
 			lang={locale}
 		>
 			<head>
-				<link
-					href="/logo.svg"
-					rel="icon"
-					sizes="any"
+				<meta
+					content="Drive"
+					name="apple-mobile-web-app-title"
 				/>
 			</head>
 			<body className="min-h-full flex flex-col bg-crust text-foreground">
+				<RegisterSW />
 				<Providers>{children}</Providers>
 			</body>
 		</html>
