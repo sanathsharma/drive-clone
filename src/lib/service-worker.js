@@ -14,32 +14,30 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  const isPageNav = event.request.mode === "navigate";
-  const isAsset = ["script", "style", "image"].includes(event.request.destination);
+	const isPageNav = event.request.mode === "navigate";
+	const isAsset = ["script", "style", "image"].includes(event.request.destination);
 
-  if (!isAsset || isPageNav) return;
+	if (!isAsset || isPageNav) return;
 
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) return cached;
+	event.respondWith(
+		caches.match(event.request).then((cached) => {
+			if (cached) return cached;
 
-      return fetch(event.request).then((response) => {
-        const cacheControl = response.headers.get("Cache-Control") || "";
-        const isNonCacheable =
-          cacheControl.includes("no-cache") ||
-          cacheControl.includes("no-store") ||
-          cacheControl.includes("private");
+			return fetch(event.request).then((response) => {
+				const cacheControl = response.headers.get("Cache-Control") || "";
+				const isNonCacheable =
+					cacheControl.includes("no-cache") || cacheControl.includes("no-store") || cacheControl.includes("private");
 
-        if (response.ok && !isNonCacheable) {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
-        }
+				if (response.ok && !isNonCacheable) {
+					const clone = response.clone();
+					caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+				}
 
-        return response;
-      });
-    })
-  );
-});;
+				return response;
+			});
+		}),
+	);
+});
 
 self.addEventListener("message", (event) => {
 	if (event.data?.type === "CLEAR_CACHE") {
