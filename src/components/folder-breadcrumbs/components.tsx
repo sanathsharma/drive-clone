@@ -62,6 +62,7 @@ export function DropdownItem({ crumbs }: { crumbs: Crumb[] }) {
 	const renderCrumb = (crumb: Crumb) => {
 		return (
 			<DropdownMenuItem
+				className="min-w-max"
 				key={crumb.id}
 				render={<Link href={paths.folder(crumb.id)}>{crumb.name}</Link>}
 			/>
