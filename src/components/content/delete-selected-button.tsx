@@ -59,9 +59,7 @@ export function DeleteSelectedButton({ parentId }: Props) {
 		>
 			<AlertDialogTrigger
 				render={
-					<Button
-						variant="destructive"
-					>
+					<Button variant="destructive">
 						<Trash2Icon />
 						{t("delete-count", { count })}
 					</Button>
