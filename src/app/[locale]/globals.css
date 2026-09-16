@@ -227,5 +227,4 @@
 @utility c_outline-2 {
 	outline: var(--primary) solid 2px;
 	outline-offset: 4px;
-	border-radius: var(--radius);
 }

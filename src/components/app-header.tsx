@@ -6,7 +6,7 @@ export default async function AppHeader() {
 	return (
 		<div className="flex items-center justify-between h-(--header-height) px-4">
 			<Link
-				className="focus-visible:c_outline-2"
+				className="focus-visible:c_outline-2 rounded-xs"
 				href="/"
 			>
 				<Image

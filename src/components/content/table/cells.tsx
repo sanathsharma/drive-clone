@@ -34,7 +34,7 @@ export function NameCell({ row, onOpen }: { row: Row; onOpen: () => void }) {
 	return (
 		<TableCell>
 			<button
-				className="flex max-w-full items-center gap-2 text-left hover:underline"
+				className="flex max-w-full items-center gap-2 text-left hover:underline focus-visible:c_outline-2 rounded-xs"
 				onClick={onOpen}
 				type="button"
 			>

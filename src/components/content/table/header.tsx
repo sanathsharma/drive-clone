@@ -21,7 +21,7 @@ function SortableHead({ label, sortKey, sort, onSortChange }: SortableHeadProps)
 	return (
 		<TableHead>
 			<button
-				className="flex w-full items-center justify-between gap-1 text-left"
+				className="flex w-full items-center justify-between gap-1 text-left rounded-xs focus-visible:c_outline-2"
 				onClick={() => onSortChange(sortKey)}
 				type="button"
 			>
