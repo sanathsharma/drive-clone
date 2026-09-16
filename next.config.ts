@@ -4,6 +4,7 @@ import createNextIntlPlugin from "next-intl/plugin";
 const IGNORE_BUILD_ERRORS = process.env.IGNORE_BUILD_ERRORS === "true";
 
 const nextConfig: NextConfig = {
+	cacheComponents: true,
 	experimental: {
 		globalNotFound: true,
 	},
