@@ -20,7 +20,7 @@ migrate:
 
 # Push schema directly to db (no migration files, good for prototyping)
 push:
-	secretspec run -- npx drizzle-kit push
+	secretspec run --scope drizzle -- npx drizzle-kit push
 
 # Open Drizzle Studio to browse the db
 studio:

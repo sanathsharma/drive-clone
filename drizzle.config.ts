@@ -1,9 +1,13 @@
 import { defineConfig } from "drizzle-kit";
-import { config } from "@/constants";
+
+const { DATABASE_URL } = process.env;
+if (!DATABASE_URL) {
+	throw new Error("DATABASE_URL is not set");
+}
 
 export default defineConfig({
 	dbCredentials: {
-		url: config.DATABASE_URL,
+		url: DATABASE_URL,
 	},
 	dialect: "postgresql",
 	out: "./drizzle",
