@@ -1,5 +1,7 @@
+import { Suspense } from "react";
 import * as Content from "@/components/content";
 import FolderBreadcrumbs from "@/components/folder-breadcrumbs";
+import { SkeletonBreadcrumb } from "@/components/skeletons";
 import logger from "@/lib/logger";
 import { get } from "@/services/content";
 
@@ -16,7 +18,9 @@ export async function MyDrive({ folderId }: Props = {}) {
 	return (
 		<Content.ContentArea>
 			<div className="flex items-center justify-between gap-2">
-				<FolderBreadcrumbs folderId={folderId} />
+				<Suspense fallback={<SkeletonBreadcrumb count={folderId ? 2 : 1} />}>
+					<FolderBreadcrumbs folderId={folderId} />
+				</Suspense>
 				<Content.ActionsPanel parentId={folderId} />
 			</div>
 

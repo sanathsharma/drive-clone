@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { useContentArea } from "@/components/content/area";
 import { Table, TableBody, TableCell, TableColGroup, type TableColWidth, TableRow } from "@/components/ui/table";
 import type { File, Folder } from "@/db/schema";
+import { COLUMN_RATIO_TOTAL, DATA_COLUMN_WIDTHS } from "./columns";
 import { ContentEmptyState } from "./empty-state";
 import { ContentTableHeader } from "./header";
 import { ContentTableRow } from "./row";
@@ -22,12 +23,6 @@ function compareRows(a: Row, b: Row, key: SortKey) {
 	}
 	return a[key].getTime() - b[key].getTime();
 }
-
-// name : type : size : created : updated - keep in sync with the columns rendered in
-// ContentTableHeader/ContentTableRow. The checkbox and actions columns are "auto" - they defer to
-// their own w-8 <th>/<td> classes instead of taking a share of this ratio.
-const COLUMN_RATIO_TOTAL = 10;
-const DATA_COLUMN_WIDTHS: TableColWidth[] = ["auto", 1, 1, 2, 2];
 
 export function ContentTable({ files, folders, parentId }: Props) {
 	const t = useTranslations("content.table");
