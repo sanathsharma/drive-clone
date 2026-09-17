@@ -1,5 +1,6 @@
 import "server-only";
 
+import type { Readable } from "node:stream";
 import {
 	DeleteObjectCommand,
 	GetObjectCommand,
@@ -72,4 +73,10 @@ export async function headObject(key: string) {
 
 export async function deleteObject(key: string) {
 	await s3.send(new DeleteObjectCommand({ Bucket: BUCKET, Key: key }));
+}
+
+/** Readable byte stream for the object at `key`, meant to be read once (e.g. piped into a zip archive), not stored. */
+export async function getObject(key: string): Promise<Readable> {
+	const { Body } = await s3.send(new GetObjectCommand({ Bucket: BUCKET, Key: key }));
+	return Body as Readable;
 }

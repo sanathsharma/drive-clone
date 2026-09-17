@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useContentArea } from "@/components/content/area";
 import { CreateFolderDialog } from "@/components/content/create-folder-dialog";
 import { DeleteSelectedButton } from "@/components/content/delete-selected-button";
+import { DownloadSelectedButton } from "@/components/content/download-selected-button";
 import { Button } from "@/components/ui/button";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
 import { Separator } from "@/components/ui/separator";
@@ -59,7 +60,12 @@ export function ActionsPanel({ parentId }: Props) {
 				{area.selectMode ? t("cancel-select") : t("select")}
 			</Toggle>
 
-			{area.selectMode && area.selected.size > 0 && <DeleteSelectedButton parentId={parentId} />}
+			{area.selectMode && area.selected.size > 0 && (
+				<>
+					<DownloadSelectedButton />
+					<DeleteSelectedButton parentId={parentId} />
+				</>
+			)}
 		</div>
 	);
 }

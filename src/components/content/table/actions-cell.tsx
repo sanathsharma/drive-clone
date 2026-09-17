@@ -1,6 +1,6 @@
 "use client";
 
-import { MoreHorizontalIcon, PencilIcon, Trash2Icon } from "lucide-react";
+import { DownloadIcon, MoreHorizontalIcon, PencilIcon, Trash2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import * as fileActions from "@/actions/files";
@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { TableCell } from "@/components/ui/table";
 import { toast } from "@/components/ui/toast";
+import { navigateForDownload, triggerDownload } from "@/lib/trigger-download";
 import type { Row } from "./types";
 
 type Props = {
@@ -56,6 +57,31 @@ export function ActionsCell({ row, parentId }: Props) {
 		});
 	};
 
+	const onDownload = () => {
+		if (row.type === "file") {
+			navigateForDownload(`/api/files/${row.id}?download`);
+			return;
+		}
+
+		startTransition(async () => {
+			try {
+				await toast.promise(
+					triggerDownload({
+						fallbackFilename: `${row.name}.zip`,
+						items: [{ id: row.id, type: "folder" }],
+					}),
+					{
+						error: () => t("download.failed", { name: row.name }),
+						loading: t("download.preparing"),
+						success: () => t("download.downloaded", { name: row.name }),
+					},
+				);
+			} catch {
+				// toast.promise already surfaced the error toast.
+			}
+		});
+	};
+
 	return (
 		<TableCell>
 			<DropdownMenu>
@@ -71,6 +97,10 @@ export function ActionsCell({ row, parentId }: Props) {
 					}
 				/>
 				<DropdownMenuContent align="end">
+					<DropdownMenuItem onClick={onDownload}>
+						<DownloadIcon />
+						{t("table.download")}
+					</DropdownMenuItem>
 					<DropdownMenuItem onClick={() => setRenameOpen(true)}>
 						<PencilIcon />
 						{t("table.rename")}

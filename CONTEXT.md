@@ -15,3 +15,7 @@ _Avoid_: Directory — the schema and UI both say Folder.
 **Content**:
 The Files and Folders that live directly inside a given Folder — its children, one level deep. This is what a folder's table listing shows.
 _Avoid_: Items, entries — "Content" is the name already used by the `Content` type and the `services/content` module.
+
+**Selection**:
+The set of Content a user has checked via select mode in a Folder's listing, used as the target for a bulk action (e.g. delete, download).
+_Avoid_: Multi-select, checked items — "Selection" matches the `selected` state and `deleteSelection` action already in code.

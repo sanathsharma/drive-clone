@@ -37,6 +37,14 @@
 			"title-bulk": "Delete {count, plural, one {# item} other {# items}}?",
 			"title-single": "Delete \"{name}\"?"
 		},
+		"download": {
+			"download-count": "Download ({count})",
+			"download-selected-failed": "Couldn't download the selected items",
+			"downloaded": "\"{name}\" downloaded",
+			"downloaded-count": "{count, plural, one {# item} other {# items}} downloaded",
+			"failed": "Couldn't download \"{name}\"",
+			"preparing": "Preparing download…"
+		},
 		"open-file": {
 			"failed": "Couldn't open \"{name}\""
 		},
@@ -57,6 +65,7 @@
 		"table": {
 			"created": "Created",
 			"delete": "Delete",
+			"download": "Download",
 			"empty-description": "Upload files or create a folder to get started.",
 			"empty-title": "This folder is empty",
 			"name": "Name",
