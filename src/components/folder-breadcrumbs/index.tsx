@@ -1,15 +1,13 @@
 import logger from "@/lib/logger";
 import { getBreadcrumbsFor } from "@/services/content";
+import { BreadcrumbsClient } from "./breadcrumbs-client";
 import * as Crumbs from "./components";
-
-const MAX_VISIBLE_CRUMBS = 3;
-const TRAILING_VISIBLE_CRUMBS = 2;
 
 type Props = {
 	folderId?: string;
 };
 
-export default async function FolderBreadcrumbs({ folderId }: Props) {
+export default function FolderBreadcrumbs({ folderId }: Props) {
 	if (!folderId) {
 		return (
 			<Crumbs.Root>
@@ -18,30 +16,12 @@ export default async function FolderBreadcrumbs({ folderId }: Props) {
 		);
 	}
 
-	const { data: crumbs, error } = await getBreadcrumbsFor(folderId);
-	if (error) {
-		logger.error(error);
-		return null;
-	}
+	const crumbsPromise = getBreadcrumbsFor(folderId);
+	crumbsPromise.then(({ error }) => {
+		if (error) {
+			logger.error(error);
+		}
+	});
 
-	if (crumbs.length > MAX_VISIBLE_CRUMBS) {
-		const overflowCrumbs = crumbs.slice(0, -TRAILING_VISIBLE_CRUMBS);
-		const visibleCrumbs = crumbs.slice(-TRAILING_VISIBLE_CRUMBS);
-
-		return (
-			<Crumbs.Root>
-				<Crumbs.HomeItem />
-				<Crumbs.Separator />
-				<Crumbs.DropdownItem crumbs={overflowCrumbs} />
-				<Crumbs.RestItems crumbs={visibleCrumbs} />
-			</Crumbs.Root>
-		);
-	}
-
-	return (
-		<Crumbs.Root>
-			<Crumbs.HomeItem />
-			<Crumbs.RestItems crumbs={crumbs} />
-		</Crumbs.Root>
-	);
+	return <BreadcrumbsClient crumbsPromise={crumbsPromise} />;
 }

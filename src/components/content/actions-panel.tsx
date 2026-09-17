@@ -24,7 +24,7 @@ export function ActionsPanel({ parentId }: Props) {
 	}
 
 	return (
-		<div className="flex grow shrink-0 flex-wrap items-center gap-1.5">
+		<div className="flex grow md:grow-0 shrink-0 flex-wrap md:flex-nowrap items-center gap-1.5">
 			<InputGroup className="w-full">
 				<InputGroupAddon>
 					<SearchIcon />
@@ -53,6 +53,7 @@ export function ActionsPanel({ parentId }: Props) {
 			/>
 
 			<Toggle
+				className="shrink-0"
 				onPressedChange={area.toggleSelectMode}
 				pressed={area.selectMode}
 				variant="outline"

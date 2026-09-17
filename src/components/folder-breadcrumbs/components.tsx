@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Fragment } from "react";
 import {
@@ -20,7 +22,7 @@ import {
 import { paths } from "@/constants/paths";
 import type { Crumb } from "@/services/content";
 
-export async function RestItems({ crumbs }: { crumbs: Crumb[] }) {
+export function RestItems({ crumbs }: { crumbs: Crumb[] }) {
 	const renderCrumb = (crumb: (typeof crumbs)[number], index: number) => {
 		const isLast = crumbs.length === index + 1;
 

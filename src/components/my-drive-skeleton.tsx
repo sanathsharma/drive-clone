@@ -57,7 +57,7 @@ export function MyDriveSkeleton({ crumbCount = 1 }: Props) {
 			<div className="flex shrink-0 flex-col gap-4 md:flex-row md:items-center md:justify-between">
 				<SkeletonBreadcrumb count={crumbCount} />
 
-				<div className="flex grow shrink-0 flex-wrap items-center gap-1.5">
+				<div className="flex grow md:grow-0 shrink-0 flex-wrap md:flex-nowrap items-center gap-1.5">
 					<SkeletonInput width={SEARCH_INPUT_WIDTH} />
 					<SkeletonIconButton />
 					<SkeletonIconButton />
