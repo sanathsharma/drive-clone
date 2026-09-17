@@ -17,7 +17,7 @@ export function SkeletonTable({ children, columnCount, rowCount, columnClassName
 	return (
 		<Table>
 			{children}
-			<TableHeader>
+			<TableHeader className="sticky top-0 z-10 bg-background">
 				<TableRow>
 					{columns.map((_, index) => (
 						<TableHead

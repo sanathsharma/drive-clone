@@ -11,7 +11,7 @@ export function SkeletonBreadcrumb({ count }: Props) {
 
 	return (
 		<Breadcrumb>
-			<BreadcrumbList>
+			<BreadcrumbList className="h-5">
 				{crumbs.map((_, index) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: a fixed-length run of placeholder crumbs, never reordered
 					<Fragment key={index}>

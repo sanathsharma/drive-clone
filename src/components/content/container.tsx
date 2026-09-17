@@ -9,7 +9,7 @@ type Props = ComponentProps<"div"> & {
 export function Container({ children, className, ...rest }: Props) {
 	return (
 		<ScrollArea
-			className={cn("w-full grow", className)}
+			className={cn("w-full min-h-0 grow", className)}
 			{...rest}
 		>
 			{children}

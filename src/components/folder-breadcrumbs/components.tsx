@@ -94,7 +94,7 @@ export function DropdownItem({ crumbs }: { crumbs: Crumb[] }) {
 export function Root({ children }: { children: React.ReactNode }) {
 	return (
 		<Breadcrumb>
-			<BreadcrumbList>{children}</BreadcrumbList>
+			<BreadcrumbList className="h-5">{children}</BreadcrumbList>
 		</Breadcrumb>
 	);
 }

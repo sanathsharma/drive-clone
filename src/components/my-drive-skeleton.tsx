@@ -54,7 +54,7 @@ type Props = {
 export function MyDriveSkeleton({ crumbCount = 1 }: Props) {
 	return (
 		<>
-			<div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+			<div className="flex shrink-0 flex-col gap-4 md:flex-row md:items-center md:justify-between">
 				<SkeletonBreadcrumb count={crumbCount} />
 
 				<div className="flex shrink-0 items-center gap-1.5">
