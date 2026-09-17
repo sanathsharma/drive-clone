@@ -21,7 +21,7 @@ import { TableColGroup } from "@/components/ui/table";
 
 // The actions row's non-icon elements don't have a "real" width until their text renders, so these
 // are best-effort estimates rather than exact matches.
-const SEARCH_INPUT_WIDTH = "12rem"; // matches ActionsPanel's search InputGroup (w-48)
+const SEARCH_INPUT_WIDTH = "100%"; // matches ActionsPanel's search InputGroup (w-full)
 const SELECT_TOGGLE_WIDTH = "6ch"; // approximates the "Select" toggle's default label width
 
 const TABLE_COLUMN_WIDTHS = [...DATA_COLUMN_WIDTHS, "auto"];
@@ -57,7 +57,7 @@ export function MyDriveSkeleton({ crumbCount = 1 }: Props) {
 			<div className="flex shrink-0 flex-col gap-4 md:flex-row md:items-center md:justify-between">
 				<SkeletonBreadcrumb count={crumbCount} />
 
-				<div className="flex shrink-0 items-center gap-1.5">
+				<div className="flex grow shrink-0 flex-wrap items-center gap-1.5">
 					<SkeletonInput width={SEARCH_INPUT_WIDTH} />
 					<SkeletonIconButton />
 					<SkeletonIconButton />

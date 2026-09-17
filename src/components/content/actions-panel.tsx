@@ -24,8 +24,8 @@ export function ActionsPanel({ parentId }: Props) {
 	}
 
 	return (
-		<div className="flex shrink-0 items-center gap-1.5">
-			<InputGroup className="w-48">
+		<div className="flex grow shrink-0 flex-wrap items-center gap-1.5">
+			<InputGroup className="w-full">
 				<InputGroupAddon>
 					<SearchIcon />
 				</InputGroupAddon>
