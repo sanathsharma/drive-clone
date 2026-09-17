@@ -1,5 +1,11 @@
 import { Container } from "@/components/content/container";
-import { COLUMN_RATIO_TOTAL, DATA_COLUMN_WIDTHS } from "@/components/content/table/columns";
+import {
+	ACTIONS_COL_CLASS,
+	COLUMN_RATIO_TOTAL,
+	DATA_COLUMN_WIDTHS,
+	MOBILE_HIDDEN_CELL_CLASS,
+	MOBILE_HIDDEN_COL_CLASS,
+} from "@/components/content/table/columns";
 import {
 	SkeletonBreadcrumb,
 	SkeletonButton,
@@ -18,7 +24,26 @@ import { TableColGroup } from "@/components/ui/table";
 const SEARCH_INPUT_WIDTH = "12rem"; // matches ActionsPanel's search InputGroup (w-48)
 const SELECT_TOGGLE_WIDTH = "6ch"; // approximates the "Select" toggle's default label width
 
-const TABLE_COLUMN_WIDTHS = [...DATA_COLUMN_WIDTHS, "3rem"];
+const TABLE_COLUMN_WIDTHS = [...DATA_COLUMN_WIDTHS, "auto"];
+// Mirrors ContentTable's own mobile column hiding (see columns.ts) so the skeleton doesn't
+// shift once real data replaces it. Separate arrays because `<col>` and `<th>`/`<td>` need
+// different display values to hide the same column (table-column vs. table-cell).
+const TABLE_COL_CLASS_NAMES = [
+	undefined,
+	MOBILE_HIDDEN_COL_CLASS,
+	MOBILE_HIDDEN_COL_CLASS,
+	MOBILE_HIDDEN_COL_CLASS,
+	MOBILE_HIDDEN_COL_CLASS,
+	ACTIONS_COL_CLASS,
+];
+const TABLE_CELL_CLASS_NAMES = [
+	undefined,
+	MOBILE_HIDDEN_CELL_CLASS,
+	MOBILE_HIDDEN_CELL_CLASS,
+	MOBILE_HIDDEN_CELL_CLASS,
+	MOBILE_HIDDEN_CELL_CLASS,
+	ACTIONS_COL_CLASS,
+];
 const TABLE_ROW_COUNT = 15;
 
 type Props = {
@@ -29,7 +54,7 @@ type Props = {
 export function MyDriveSkeleton({ crumbCount = 1 }: Props) {
 	return (
 		<>
-			<div className="flex items-center justify-between gap-2">
+			<div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
 				<SkeletonBreadcrumb count={crumbCount} />
 
 				<div className="flex shrink-0 items-center gap-1.5">
@@ -46,10 +71,12 @@ export function MyDriveSkeleton({ crumbCount = 1 }: Props) {
 
 			<Container>
 				<SkeletonTable
+					columnClassNames={TABLE_CELL_CLASS_NAMES}
 					columnCount={TABLE_COLUMN_WIDTHS.length}
 					rowCount={TABLE_ROW_COUNT}
 				>
 					<TableColGroup
+						classNames={TABLE_COL_CLASS_NAMES}
 						total={COLUMN_RATIO_TOTAL}
 						widths={TABLE_COLUMN_WIDTHS}
 					/>

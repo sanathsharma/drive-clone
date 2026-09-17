@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { useContentArea } from "@/components/content/area";
 import { Table, TableBody, TableCell, TableColGroup, type TableColWidth, TableRow } from "@/components/ui/table";
 import type { File, Folder } from "@/db/schema";
-import { COLUMN_RATIO_TOTAL, DATA_COLUMN_WIDTHS } from "./columns";
+import { ACTIONS_COL_CLASS, COLUMN_RATIO_TOTAL, DATA_COLUMN_WIDTHS, MOBILE_HIDDEN_COL_CLASS } from "./columns";
 import { ContentEmptyState } from "./empty-state";
 import { ContentTableHeader } from "./header";
 import { ContentTableRow } from "./row";
@@ -62,11 +62,22 @@ export function ContentTable({ files, folders, parentId }: Props) {
 		area?.toggleSelectAll(rows.map((row) => ({ id: row.id, type: row.type })));
 	};
 
-	const widths: TableColWidth[] = [...(area?.selectMode ? (["auto"] as const) : []), ...DATA_COLUMN_WIDTHS, "3rem"];
+	const widths: TableColWidth[] = [...(area?.selectMode ? (["auto"] as const) : []), ...DATA_COLUMN_WIDTHS, "auto"];
+	// Name and the actions column stay visible on mobile; Type/Size/Created/Updated hide below `sm`.
+	const colClassNames: (string | undefined)[] = [
+		...(area?.selectMode ? [undefined] : []),
+		undefined,
+		MOBILE_HIDDEN_COL_CLASS,
+		MOBILE_HIDDEN_COL_CLASS,
+		MOBILE_HIDDEN_COL_CLASS,
+		MOBILE_HIDDEN_COL_CLASS,
+		ACTIONS_COL_CLASS,
+	];
 
 	return (
 		<Table className="table-fixed">
 			<TableColGroup
+				classNames={colClassNames}
 				total={COLUMN_RATIO_TOTAL}
 				widths={widths}
 			/>

@@ -78,7 +78,8 @@
 			"type": "Type",
 			"type-folder": "Folder",
 			"updated": "Updated",
-			"upload-cta": "Upload"
+			"upload-cta": "Upload",
+			"view-details": "View details"
 		}
 	},
 	"email-sent": {

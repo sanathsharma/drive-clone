@@ -1,6 +1,6 @@
 "use client";
 
-import { DownloadIcon, MoreHorizontalIcon, PencilIcon, Trash2Icon } from "lucide-react";
+import { DownloadIcon, InfoIcon, MoreHorizontalIcon, PencilIcon, Trash2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import * as fileActions from "@/actions/files";
@@ -17,6 +17,7 @@ import {
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -26,6 +27,7 @@ import {
 import { TableCell } from "@/components/ui/table";
 import { toast } from "@/components/ui/toast";
 import { navigateForDownload, triggerDownload } from "@/lib/trigger-download";
+import { formatBytes, formatDateTime } from "./format";
 import type { Row } from "./types";
 
 type Props = {
@@ -37,6 +39,7 @@ export function ActionsCell({ row, parentId }: Props) {
 	const t = useTranslations("content");
 	const [confirmOpen, setConfirmOpen] = useState(false);
 	const [renameOpen, setRenameOpen] = useState(false);
+	const [detailsOpen, setDetailsOpen] = useState(false);
 	const [isPending, startTransition] = useTransition();
 
 	const onConfirmDelete = () => {
@@ -84,36 +87,72 @@ export function ActionsCell({ row, parentId }: Props) {
 
 	return (
 		<TableCell>
-			<DropdownMenu>
-				<DropdownMenuTrigger
-					render={
-						<Button
-							aria-label={t("table.open-menu")}
-							size="icon-sm"
-							variant="ghost"
+			<div className="flex items-center gap-1">
+				<Button
+					aria-label={t("table.view-details")}
+					className="md:hidden"
+					onClick={() => setDetailsOpen(true)}
+					size="icon-sm"
+					title={t("table.view-details")}
+					variant="ghost"
+				>
+					<InfoIcon />
+				</Button>
+
+				<DropdownMenu>
+					<DropdownMenuTrigger
+						render={
+							<Button
+								aria-label={t("table.open-menu")}
+								size="icon-sm"
+								title={t("table.open-menu")}
+								variant="ghost"
+							>
+								<MoreHorizontalIcon />
+							</Button>
+						}
+					/>
+					<DropdownMenuContent align="end">
+						<DropdownMenuItem onClick={onDownload}>
+							<DownloadIcon />
+							{t("table.download")}
+						</DropdownMenuItem>
+						<DropdownMenuItem onClick={() => setRenameOpen(true)}>
+							<PencilIcon />
+							{t("table.rename")}
+						</DropdownMenuItem>
+						<DropdownMenuItem
+							onClick={() => setConfirmOpen(true)}
+							variant="destructive"
 						>
-							<MoreHorizontalIcon />
-						</Button>
-					}
-				/>
-				<DropdownMenuContent align="end">
-					<DropdownMenuItem onClick={onDownload}>
-						<DownloadIcon />
-						{t("table.download")}
-					</DropdownMenuItem>
-					<DropdownMenuItem onClick={() => setRenameOpen(true)}>
-						<PencilIcon />
-						{t("table.rename")}
-					</DropdownMenuItem>
-					<DropdownMenuItem
-						onClick={() => setConfirmOpen(true)}
-						variant="destructive"
-					>
-						<Trash2Icon />
-						{t("table.delete")}
-					</DropdownMenuItem>
-				</DropdownMenuContent>
-			</DropdownMenu>
+							<Trash2Icon />
+							{t("table.delete")}
+						</DropdownMenuItem>
+					</DropdownMenuContent>
+				</DropdownMenu>
+			</div>
+
+			<Dialog
+				onOpenChange={setDetailsOpen}
+				open={detailsOpen}
+			>
+				<DialogContent>
+					<DialogHeader>
+						<DialogTitle>{row.name}</DialogTitle>
+					</DialogHeader>
+
+					<dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
+						<dt className="text-muted-foreground">{t("table.type")}</dt>
+						<dd className="truncate">{row.type === "folder" ? t("table.type-folder") : (row.mime_type ?? "-")}</dd>
+						<dt className="text-muted-foreground">{t("table.size")}</dt>
+						<dd>{row.type === "folder" ? "-" : formatBytes(row.size)}</dd>
+						<dt className="text-muted-foreground">{t("table.created")}</dt>
+						<dd>{formatDateTime(row.created_at)}</dd>
+						<dt className="text-muted-foreground">{t("table.updated")}</dt>
+						<dd>{formatDateTime(row.updated_at)}</dd>
+					</dl>
+				</DialogContent>
+			</Dialog>
 
 			<RenameDialog
 				onOpenChange={setRenameOpen}

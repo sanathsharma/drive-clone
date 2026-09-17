@@ -6,9 +6,11 @@ type Props = {
 	children?: React.ReactNode;
 	columnCount: number;
 	rowCount: number;
+	/** One class name per column, in column order - e.g. to mirror the real table's responsive column hiding. */
+	columnClassNames?: (string | undefined)[];
 };
 
-export function SkeletonTable({ children, columnCount, rowCount }: Props) {
+export function SkeletonTable({ children, columnCount, rowCount, columnClassNames }: Props) {
 	const columns = Array.from({ length: columnCount });
 	const rows = Array.from({ length: rowCount });
 
@@ -18,8 +20,11 @@ export function SkeletonTable({ children, columnCount, rowCount }: Props) {
 			<TableHeader>
 				<TableRow>
 					{columns.map((_, index) => (
-						// biome-ignore lint/suspicious/noArrayIndexKey: a fixed-length run of placeholder columns, never reordered
-						<TableHead key={index}>
+						<TableHead
+							className={columnClassNames?.[index]}
+							// biome-ignore lint/suspicious/noArrayIndexKey: a <col> at position `index` always governs the table's `index`-th column - the index is its actual identity, and this list never reorders
+							key={index}
+						>
 							<Skeleton className="h-4 w-full" />
 						</TableHead>
 					))}
@@ -30,8 +35,11 @@ export function SkeletonTable({ children, columnCount, rowCount }: Props) {
 					// biome-ignore lint/suspicious/noArrayIndexKey: a fixed-length run of placeholder rows, never reordered
 					<TableRow key={rowIndex}>
 						{columns.map((_, columnIndex) => (
-							// biome-ignore lint/suspicious/noArrayIndexKey: a fixed-length run of placeholder columns, never reordered
-							<TableCell key={columnIndex}>
+							<TableCell
+								className={columnClassNames?.[columnIndex]}
+								// biome-ignore lint/suspicious/noArrayIndexKey: a <col> at position `index` always governs the table's `index`-th column - the index is its actual identity, and this list never reorders
+								key={columnIndex}
+							>
 								<Skeleton className="h-4 w-full" />
 							</TableCell>
 						))}

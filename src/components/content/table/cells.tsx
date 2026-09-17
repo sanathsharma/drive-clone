@@ -1,6 +1,8 @@
 import { FileIcon, FolderIcon } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TableCell } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
+import { MOBILE_HIDDEN_CELL_CLASS } from "./columns";
 import { formatBytes, formatDateTime } from "./format";
 import type { Row } from "./types";
 
@@ -47,16 +49,22 @@ export function NameCell({ row, onOpen }: { row: Row; onOpen: () => void }) {
 
 export function TypeCell({ row, folderLabel }: { row: Row; folderLabel: string }) {
 	return (
-		<TableCell className="truncate text-muted-foreground">
+		<TableCell className={cn("truncate text-muted-foreground", MOBILE_HIDDEN_CELL_CLASS)}>
 			{row.type === "folder" ? folderLabel : (row.mime_type ?? "-")}
 		</TableCell>
 	);
 }
 
 export function SizeCell({ row }: { row: Row }) {
-	return <TableCell className="text-muted-foreground">{row.type === "folder" ? "-" : formatBytes(row.size)}</TableCell>;
+	return (
+		<TableCell className={cn("text-muted-foreground", MOBILE_HIDDEN_CELL_CLASS)}>
+			{row.type === "folder" ? "-" : formatBytes(row.size)}
+		</TableCell>
+	);
 }
 
 export function DateCell({ date }: { date: Date }) {
-	return <TableCell className="text-muted-foreground">{formatDateTime(date)}</TableCell>;
+	return (
+		<TableCell className={cn("text-muted-foreground", MOBILE_HIDDEN_CELL_CLASS)}>{formatDateTime(date)}</TableCell>
+	);
 }

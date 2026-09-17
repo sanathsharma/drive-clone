@@ -35,9 +35,11 @@ type TableColGroupProps = {
 	widths: TableColWidth[];
 	/** Denominator for the ratio math: a numeric entry renders as `${entry / total * 100}%`. */
 	total: number;
+	/** One class name per `<col>`, in column order - e.g. for responsive width or visibility. */
+	classNames?: (string | undefined)[];
 };
 
-function TableColGroup({ widths, total }: TableColGroupProps) {
+function TableColGroup({ widths, total, classNames }: TableColGroupProps) {
 	return (
 		<colgroup data-slot="table-colgroup">
 			{widths.map((width, index) => {
@@ -46,6 +48,7 @@ function TableColGroup({ widths, total }: TableColGroupProps) {
 
 				return (
 					<col
+						className={classNames?.[index]}
 						// biome-ignore lint/suspicious/noArrayIndexKey: a <col> at position `index` always governs the table's `index`-th column - the index is its actual identity, and this list never reorders
 						key={index}
 						style={style}

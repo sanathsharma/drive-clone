@@ -17,7 +17,7 @@ export async function MyDrive({ folderId }: Props = {}) {
 
 	return (
 		<Content.ContentArea>
-			<div className="flex items-center justify-between gap-2">
+			<div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
 				<Suspense fallback={<SkeletonBreadcrumb count={folderId ? 2 : 1} />}>
 					<FolderBreadcrumbs folderId={folderId} />
 				</Suspense>

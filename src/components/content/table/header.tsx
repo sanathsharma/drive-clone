@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useContentArea } from "@/components/content/area";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { MOBILE_HIDDEN_CELL_CLASS } from "./columns";
 import type { Row, SortKey, SortState } from "./types";
 
 type SortableHeadProps = {
@@ -12,14 +13,15 @@ type SortableHeadProps = {
 	sortKey: SortKey;
 	sort: SortState;
 	onSortChange: (key: SortKey) => void;
+	className?: string;
 };
 
-function SortableHead({ label, sortKey, sort, onSortChange }: SortableHeadProps) {
+function SortableHead({ label, sortKey, sort, onSortChange, className }: SortableHeadProps) {
 	const isActive = sort.key === sortKey;
 	const DirectionIcon = sort.direction === "asc" ? ArrowUpIcon : ArrowDownIcon;
 
 	return (
-		<TableHead>
+		<TableHead className={className}>
 			<button
 				className="flex w-full items-center justify-between gap-1 text-left rounded-xs focus-visible:c_outline-2"
 				onClick={() => onSortChange(sortKey)}
@@ -66,15 +68,17 @@ export function ContentTableHeader({ rows, sort, onSortChange, onToggleSelectAll
 					sort={sort}
 					sortKey="name"
 				/>
-				<TableHead>{t("type")}</TableHead>
-				<TableHead>{t("size")}</TableHead>
+				<TableHead className={MOBILE_HIDDEN_CELL_CLASS}>{t("type")}</TableHead>
+				<TableHead className={MOBILE_HIDDEN_CELL_CLASS}>{t("size")}</TableHead>
 				<SortableHead
+					className={MOBILE_HIDDEN_CELL_CLASS}
 					label={t("created")}
 					onSortChange={onSortChange}
 					sort={sort}
 					sortKey="created_at"
 				/>
 				<SortableHead
+					className={MOBILE_HIDDEN_CELL_CLASS}
 					label={t("updated")}
 					onSortChange={onSortChange}
 					sort={sort}
